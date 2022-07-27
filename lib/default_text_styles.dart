@@ -133,14 +133,14 @@ const defaultEmbeddedDarkTextStyle = const TextStyle(
   color: Colors.white,
 );
 
-const defaultEmbeddedClickableTextStyle = const TextStyle(
+get defaultEmbeddedClickableTextStyle => TextStyle(
   fontSize: 18.0,
   fontFamily: 'Roboto',
-  fontWeight: FontWeight.w300,
+  fontWeight: FontWeight.w400,
   height: 1.25,
   wordSpacing: 4,
   letterSpacing: 0,
-  color: Colors.blue,
+  color: Colors.lightBlue,
 );
 
 const defaultEmbeddedDarkQuoteUserNameStyle = const TextStyle(

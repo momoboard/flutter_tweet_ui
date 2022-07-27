@@ -228,84 +228,67 @@ class EmbeddedTweetView extends StatelessWidget {
                   size: 18,
                 ),
                 Container(
-                    margin: EdgeInsets.only(left: 6),
+                    margin: EdgeInsets.only(left: 6, right: 10),
                     child: Text(_tweetVM.favoriteCount.toString(),
                         style: TextStyle(
                             color: (darkMode)
                                 ? Colors.grey[400]
                                 : Colors.grey[600]))),
-                if (_shouldShowReplies)
-                  Container(
-                    margin: EdgeInsets.only(left: 16),
-                    child: Icon(
-                      _tweetVM.replied
-                          ? Icons.mode_comment
-                          : Icons.mode_comment_outlined,
-                      color: (darkMode) ? Colors.grey[400] : Colors.grey[600],
-                      size: 18,
-                    ),
-                  ),
-                if (_shouldShowReplies)
-                  Container(
-                      margin: EdgeInsets.only(left: 6),
-                      child: Text(_tweetVM.repliesCount.toString(),
-                          style: TextStyle(
-                              color: (darkMode)
-                                  ? Colors.grey[400]
-                                  : Colors.grey[600]))),
-                if (_tweetVM.createdAt != null)
-                  Container(
-                    margin: EdgeInsets.only(left: 16),
-                    child: Text(
-                      _tweetVM.createdAt!,
-                      style: TextStyle(
-                          color:
-                              (darkMode) ? Colors.grey[400] : Colors.grey[600]),
-                    ),
-                  )
+                Image.asset(
+                  "assets/tw__ic_retweet_light.png",
+                  fit: BoxFit.fitWidth,
+                  package: 'tweet_ui',
+                  color: (darkMode) ? Colors.grey[400] : Colors.grey[600],
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 6, right: 10),
+                    child: Text(_tweetVM.retweetCount.toString(),
+                        style: TextStyle(
+                            color: (darkMode)
+                                ? Colors.grey[400]
+                                : Colors.grey[600]))),
               ],
             ),
           ),
-          if (_tweetVM.userName.isNotEmpty)
-            Divider(
-              color: Colors.grey[400],
-            ),
-          if (_tweetVM.userName.isNotEmpty)
-            Container(
-              margin: EdgeInsets.only(left: 20, right: 20, bottom: 15, top: 5),
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  openUrl(_tweetVM.userLink);
-                },
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.person_outline,
-                      color: (darkMode) ? Colors.blue[100] : Colors.blue[700],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Text(
-                          "${_tweetVM.userName}'s other tweets",
-                          style: TextStyle(
-                              color: (darkMode)
-                                  ? Colors.blue[100]
-                                  : Colors.blue[800],
-                              fontWeight: FontWeight.w400),
-                          maxLines: 1,
-                          overflow: TextOverflow.fade,
-                          softWrap: false,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
+          SizedBox.fromSize(size: Size.fromHeight(10))
+          // Divider(
+          //   color: Colors.grey[400],
+          // ),
+          // Container(
+          //   margin: EdgeInsets.only(left: 20, right: 20, bottom: 15, top: 5),
+          //   child: GestureDetector(
+          //     behavior: HitTestBehavior.translucent,
+          //     onTap: () {
+          //       openUrl(_tweetVM.userLink);
+          //     },
+          //     child: Row(
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Icon(
+          //           Icons.person_outline,
+          //           color: (darkMode) ? Colors.blue[100] : Colors.blue[700],
+          //         ),
+          //         Expanded(
+          //           child: Padding(
+          //             padding: const EdgeInsets.only(left: 5),
+          //             child: Text(
+          //               "${_tweetVM.userName}'s other tweets",
+          //               style: TextStyle(
+          //                   color: (darkMode)
+          //                       ? Colors.blue[100]
+          //                       : Colors.blue[800],
+          //                   fontWeight: FontWeight.w400),
+          //               maxLines: 1,
+          //               overflow: TextOverflow.fade,
+          //               softWrap: false,
+          //               textAlign: TextAlign.start,
+          //             ),
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

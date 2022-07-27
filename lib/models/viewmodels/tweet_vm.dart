@@ -27,38 +27,39 @@ class TweetVM {
   final double? videoAspectRatio;
   final int? favoriteCount;
   final int? repliesCount;
+  final int? retweetCount;
   final int? startDisplayText;
   final int? endDisplayText;
   final bool favorited;
   final bool replied;
 
-  const TweetVM({
-    required this.createdAt,
-    required this.hasSupportedVideo,
-    required this.allEntities,
-    required this.hasPhoto,
-    required this.hasGif,
-    required this.tweetLink,
-    required this.userLink,
-    required this.text,
-    required this.textRunes,
-    required this.profileUrl,
-    required this.allPhotos,
-    required this.userName,
-    required this.userScreenName,
-    this.quotedTweet,
-    this.retweetedTweet,
-    required this.userVerified,
-    this.videoPlaceholderUrl,
-    required this.videoUrls,
-    this.videoAspectRatio,
-    this.favoriteCount,
-    this.repliesCount,
-    this.startDisplayText,
-    this.endDisplayText,
-    required this.favorited,
-    required this.replied,
-  });
+  TweetVM(
+      {required this.createdAt,
+      required this.hasSupportedVideo,
+      required this.allEntities,
+      required this.hasPhoto,
+      required this.hasGif,
+      required this.tweetLink,
+      required this.userLink,
+      required this.text,
+      required this.textRunes,
+      required this.profileUrl,
+      required this.allPhotos,
+      required this.userName,
+      required this.userScreenName,
+      this.quotedTweet,
+      this.retweetedTweet,
+      required this.userVerified,
+      this.videoPlaceholderUrl,
+      required this.videoUrls,
+      this.videoAspectRatio,
+      this.favoriteCount,
+      this.repliesCount,
+      this.retweetCount,
+      this.startDisplayText,
+      this.endDisplayText,
+      required this.favorited,
+      required this.replied});
 
   factory TweetVM.fromApiModel(
           TweetV1Response tweet, DateFormat? createdDateDisplayFormat) =>

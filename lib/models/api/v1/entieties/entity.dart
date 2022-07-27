@@ -38,10 +38,12 @@ abstract class Entity {
   });
 
   int get start {
+    if(indices == null) return 0;
     return indices[START_INDEX];
   }
 
   int get end {
+    if(indices == null) return 0;
     return indices[END_INDEX];
   }
 }

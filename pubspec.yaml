@@ -13,8 +13,11 @@ dependencies:
   cached_network_image: ^3.2.0
   collection: ^1.15.0
   intl: ^0.17.0
-  better_player: ^0.0.81
-  photo_view: ^0.13.0
+
+  better_player:
+    git: https://github.com/momoboard/flutter_betterplayer.git
+  photo_view:
+    git: https://github.com/momoboard/flutter_photo_view.git
   url_launcher: ^6.0.20
   html_unescape: ^2.0.0
   json_annotation: ^4.4.0

@@ -39,6 +39,7 @@ class TweetToTweetVMConverter {
       videoUrls: _videoUrls(_originalTweetOrRetweet(tweet)),
       videoAspectRatio: _videoAspectRatio(_originalTweetOrRetweet(tweet)),
       favoriteCount: _favoriteCount(tweet),
+      retweetCount: _retweetCount(tweet),
       repliesCount: _repliesCount(tweet),
       startDisplayText: _startDisplayText(_originalTweetOrRetweet(tweet)),
       endDisplayText: _endDisplayText(_originalTweetOrRetweet(tweet)),
@@ -241,6 +242,10 @@ class TweetToTweetVMConverter {
 
   static int? _repliesCount(TweetV1Response tweet) {
     return tweet.replyCount;
+  }
+
+  static int? _retweetCount(TweetV1Response tweet) {
+    return tweet.favoriteCount;
   }
 
   static int _startDisplayText(TweetV1Response tweet) {
