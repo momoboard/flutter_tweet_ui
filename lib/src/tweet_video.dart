@@ -81,9 +81,15 @@ class _TweetVideoState extends State<TweetVideo>
             : Container(),
       ),
     );
-    var videoUrl = widget.videoHighQuality!
-        ? widget.tweetVM.getDisplayTweet().videoUrls.values.last
-        : widget.tweetVM.getDisplayTweet().videoUrls.values.first;
+
+    var videoUrl;
+
+    if(widget.tweetVM.getDisplayTweet().videoUrls.values.isNotEmpty) {
+      videoUrl = widget.videoHighQuality!
+          ? widget.tweetVM.getDisplayTweet().videoUrls.values.last
+          : widget.tweetVM.getDisplayTweet().videoUrls.values.first;
+    }
+
     controller = BetterPlayerController(
       betterPlayerConfiguration,
       betterPlayerDataSource: BetterPlayerDataSource.network(videoUrl,
