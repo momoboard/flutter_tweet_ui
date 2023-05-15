@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tweet_ui/default_text_styles.dart';
-import 'package:tweet_ui/models/api/tweet.dart';
+import 'package:tweet_ui/models/api/v1/tweet.dart';
+import 'package:tweet_ui/models/api/v2/tweet_v2.dart';
 import 'package:tweet_ui/models/viewmodels/tweet_vm.dart';
 import 'package:tweet_ui/on_tap_image.dart';
 import 'package:tweet_ui/src/byline.dart';
@@ -54,10 +55,6 @@ class TweetView extends StatelessWidget {
   /// Color of the Tweet background
   final Color? backgroundColor;
 
-  /// If set to true a better_player will be used in a Tweet containing a video.
-  /// If set to false a image placeholder will he shown and a video will be played in a new page.
-  final bool? useVideoPlayer;
-
   /// If the Tweet contains a video then an initial volume can be specified with a value between 0.0 and 1.0.
   final double? videoPlayerInitialVolume;
 
@@ -70,6 +67,21 @@ class TweetView extends StatelessWidget {
   /// If set to true better_player will load the highest quality available.
   /// If set to false better_player will load the lowest quality available.
   final bool? videoHighQuality;
+
+  /// If set to true the video in the tweet, if available, will autoplay
+  /// By default it is false
+  final bool? autoPlayVideo;
+
+  /// If set to false will disallow user to enter full screen in tweet video
+  /// By default it is true
+  final bool? enableVideoFullscreen;
+
+  /// Set video Control Bar background color
+  final Color? videoControlBarBgColor;
+
+  /// The placeholder is displayed underneath the Video before it is initialized
+  /// or played.
+  final Widget? videoPlaceholder;
 
   TweetView(
     this._tweetVM, {
@@ -85,15 +97,18 @@ class TweetView extends StatelessWidget {
     this.quoteBorderColor,
     this.quoteBackgroundColor,
     this.backgroundColor,
-    this.useVideoPlayer,
     this.videoPlayerInitialVolume,
     this.onTapImage,
     this.createdDateDisplayFormat,
     this.videoHighQuality,
+    this.autoPlayVideo,
+    this.enableVideoFullscreen,
+    this.videoControlBarBgColor,
+    this.videoPlaceholder,
   }); //  TweetView(this.tweetVM);
 
-  TweetView.fromTweet(
-    Tweet tweet, {
+  TweetView.fromTweetV1(
+    TweetV1Response tweet, {
     this.userNameStyle = defaultUserNameStyle,
     this.userScreenNameStyle = defaultUserScreenNameStyle,
     this.textStyle = defaultTextStyle,
@@ -106,12 +121,39 @@ class TweetView extends StatelessWidget {
     this.quoteBorderColor = Colors.grey,
     this.quoteBackgroundColor = Colors.white,
     this.backgroundColor = Colors.white,
-    this.useVideoPlayer = true,
     this.videoPlayerInitialVolume = 0.0,
     this.onTapImage,
     this.createdDateDisplayFormat,
     this.videoHighQuality = true,
+    this.autoPlayVideo,
+    this.enableVideoFullscreen,
+    this.videoControlBarBgColor,
+    this.videoPlaceholder,
   }) : _tweetVM = TweetVM.fromApiModel(tweet, createdDateDisplayFormat);
+
+  TweetView.fromTweetV2(
+    TweetV2Response tweet, {
+    this.userNameStyle = defaultUserNameStyle,
+    this.userScreenNameStyle = defaultUserScreenNameStyle,
+    this.textStyle = defaultTextStyle,
+    this.clickableTextStyle = defaultClickableTextStyle,
+    this.retweetInformationTextStyle = defaultRetweetInformationStyle,
+    this.quoteUserNameStyle = defaultQuoteUserNameStyle,
+    this.quoteUserScreenNameStyle = defaultQuoteUserScreenNameStyle,
+    this.quoteTextStyle = defaultQuoteTextStyle,
+    this.quoteClickableTextStyle = defaultQuoteClickableTextStyle,
+    this.quoteBorderColor = Colors.grey,
+    this.quoteBackgroundColor = Colors.white,
+    this.backgroundColor = Colors.white,
+    this.videoPlayerInitialVolume = 0.0,
+    this.onTapImage,
+    this.createdDateDisplayFormat,
+    this.videoHighQuality = true,
+    this.autoPlayVideo,
+    this.enableVideoFullscreen,
+    this.videoControlBarBgColor,
+    this.videoPlaceholder,
+  }) : _tweetVM = TweetVM.fromApiV2Model(tweet, createdDateDisplayFormat);
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +164,13 @@ class TweetView extends StatelessWidget {
           MediaContainer(
             _tweetVM,
             ViewMode.standard,
-            useVideoPlayer: useVideoPlayer,
-            videoPlayerInitialVolume: videoPlayerInitialVolume ?? 0.0,
+            videoPlayerInitialVolume: videoPlayerInitialVolume,
             onTapImage: onTapImage,
             videoHighQuality: videoHighQuality,
+            autoPlayVideo: autoPlayVideo,
+            enableVideoFullscreen: enableVideoFullscreen,
+            videoControlBarBgColor: videoControlBarBgColor,
+            videoPlaceholder: videoPlaceholder,
           ),
           GestureDetector(
             onTap: () {
@@ -193,7 +238,7 @@ class TweetView extends StatelessWidget {
                     ? Padding(
                         padding:
                             EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-                        child: QuoteTweetView.fromTweet(
+                        child: QuoteTweetView(
                           _tweetVM.quotedTweet!,
                           textStyle: quoteTextStyle,
                           clickableTextStyle: quoteClickableTextStyle,
@@ -202,6 +247,8 @@ class TweetView extends StatelessWidget {
                           backgroundColor: quoteBackgroundColor,
                           borderColor: quoteBorderColor,
                           onTapImage: onTapImage,
+                          autoPlayVideo: autoPlayVideo,
+                          enableVideoFullscreen: enableVideoFullscreen,
                         ),
                       )
                     : Container(),

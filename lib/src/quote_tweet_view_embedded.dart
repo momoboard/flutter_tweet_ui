@@ -18,6 +18,8 @@ class QuoteTweetViewEmbedded extends StatelessWidget {
   final OnTapImage? onTapImage;
   final bool? autoPlayVideo;
   final bool? enableVideoFullscreen;
+  final Color? videoControlBarBgColor;
+  final Widget? videoPlaceholder;
 
   QuoteTweetViewEmbedded(
     this.tweetVM, {
@@ -30,6 +32,8 @@ class QuoteTweetViewEmbedded extends StatelessWidget {
     this.onTapImage,
     this.autoPlayVideo,
     this.enableVideoFullscreen,
+    this.videoControlBarBgColor,
+    this.videoPlaceholder,
   });
 
   @override
@@ -80,6 +84,8 @@ class QuoteTweetViewEmbedded extends StatelessWidget {
                 onTapImage: onTapImage,
                 autoPlayVideo: autoPlayVideo,
                 enableVideoFullscreen: enableVideoFullscreen,
+                videoControlBarBgColor: videoControlBarBgColor,
+                videoPlaceholder: videoPlaceholder,
               ),
             ],
           ),
